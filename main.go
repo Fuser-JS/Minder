@@ -14,5 +14,9 @@ func main() {
 		})
 	})
 	
+	r.GET("/", func(c *gin.Context) {
+		c.File("video/rick.mp4")
+	})
+	
 	r.Run()
 }
