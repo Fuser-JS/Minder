@@ -3,17 +3,10 @@ package main
 import (
 	"log"
 	"net/http"
-	"github.com/joho/godotenv"
+
 	"github.com/gin-gonic/gin"
-
-	"gorm.io/gorm"
-	"gorm.io/driver/sqlite"
+	"github.com/joho/godotenv"
 )
-
-type Item struct {
-	ID uint
-	item string
-}
 
 // env loading
 func init() {
@@ -24,19 +17,11 @@ func init() {
 }
 
 
-// Database Initialization
-func dbInit() {
-	db, err := gorm.Open(sqlite.Open("main.db"), &gorm.Config{})
-  if err != nil {
-    panic("failed to connect database")
-  }
-}
 
 
 func main() {
-	dbInit()
 	r:=gin.Default()
-	r.SetTrustedProxies([]string{"127.0.0.1"})
+	r.SetTrustedProxies([]string{"127.0.0.1", "192.168.1.1/24"})
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "ping",
